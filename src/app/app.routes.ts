@@ -1,9 +1,22 @@
 import { Routes } from '@angular/router';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { CategoryFormComponent } from './category-form/category-form.component';
+import { HelpGameComponent } from './help-game/help-game.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { TriviaComponent } from './trivia/trivia.component';
+import { MixedLettersComponent } from './mixed-letters/mixed-letters.component';
+import { WordSorterComponent } from './word-sorter/word-sorter.component';
+import { GameCardComponent } from './game-card/game-card.component';
 
 export const routes: Routes = [
-    {path: "", component: CategoriesListComponent},
-    {path: "category/:id", component: CategoryFormComponent},
-    {path: "newcategory", component: CategoryFormComponent},
-];
+    { path: "", component: DashboardComponent },
+    { path: "category", component: CategoriesListComponent },
+    { path: "category/:id", component: CategoryFormComponent },
+    { path: "newcategory", component: CategoryFormComponent },
+    { path: "help", component: HelpGameComponent },
+
+    { path: "trivia-options", component: TriviaComponent },
+    { path: "mixed-latters", component: MixedLettersComponent },
+    { path: "word-sorter", component: WordSorterComponent },
+   {  path: "game" , component:GameCardComponent } 
+]

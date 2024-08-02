@@ -1,10 +1,16 @@
-.footer-container {
+.footer{
   display: flex;
-  justify-content: right;
-  position:fixed;
-  bottom: 0;
-  width: 100%;
+  justify-content: space-between;
+  padding:0.5rem 1rem;
 }
-.example-spacer {
-  flex: 1 1 auto;
+.footer >  span{
+  display: inline-block;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+
+.help-link:hover{
+
+  cursor: pointer;
 }
