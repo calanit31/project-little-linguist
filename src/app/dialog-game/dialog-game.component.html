@@ -2,7 +2,7 @@
 <mat-dialog-content>
   <p>Choose category to play</p>
   <mat-form-field>
-    <mat-label>Animals</mat-label>
+    <mat-label></mat-label>
     <mat-select (selectionChange)="onCategoryChange($event.value)">
       <mat-option *ngFor="let category of categories" [value]="category">
         {{ category.name }}
