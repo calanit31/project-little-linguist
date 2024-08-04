@@ -6,6 +6,7 @@ import { GamesService } from '../services/game.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { DialogGameComponent } from '../dialog-game/dialog-game.component';
+import { Category } from '../../shared/model/category';
 @Component({
   selector: 'app-game-card',
   standalone: true,
@@ -24,27 +25,33 @@ export class GameCardComponent {
       width: '250px',
       data: { game: item }
     });
-
+  
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result) {
-        this.goTo(item);
+      console.log('Dialog result:', result);
+      if (result && result.category) {
+        this.goTo(item, result.category);
       }
     });
   }
-
-
-
-  goTo(item: any) {
-    console.log(item.id);
-    if (item.id == '1') {
-      this.router.navigate(['trivia-options']);
-    } else if (item.id == '2') {
-      this.router.navigate(['mixed-latters']);
-    } else if (item.id == '3') {
-      this.router.navigate(['word-sorter']);
+  
+  goTo(item: any, category: Category) {
+    console.log('Navigating to:', item.name, 'with category:', category);
+    const route = this.getRoute(item.name);
+    if (route) {
+      this.router.navigate([route], { queryParams: { category: JSON.stringify(category) } });
     }
   }
 
-
+  getRoute(gameName: string): string | null {
+    switch (gameName) {
+      case 'mixed-latters':
+        return 'mixed-latters-game';
+      case 'word-sorter':
+        return 'word-sorter-game';
+      case 'trivia-game':
+        return 'trivia-game';
+      default:
+        return null;
+    }
+  }
 }

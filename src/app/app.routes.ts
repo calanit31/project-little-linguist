@@ -9,6 +9,9 @@ import { WordSorterComponent } from './word-sorter/word-sorter.component';
 import { GameCardComponent } from './game-card/game-card.component';
 import { WordSorterGameComponent } from './word-sorter-game/word-sorter-game.component';
 
+import { TriviaGameComponent } from './trivia-game/trivia-game.component';
+import { MixedLettersGameComponent } from './mixed-letters-game/mixed-letters-game.component';
+
 export const routes: Routes = [
     { path: '', component: DashboardComponent },
     { path: "category", component: CategoriesListComponent },
@@ -19,7 +22,10 @@ export const routes: Routes = [
     { path: "trivia-options", component: TriviaComponent },
     { path: "mixed-latters", component: MixedLettersComponent },
     { path: "word-sorter", component: WordSorterComponent },
-    { path: "game", component: GameCardComponent } 
-  
+    { path: "game", component: GameCardComponent },
+    { path: "word-sorter-game", component: WordSorterGameComponent },
+    { path: "trivia-game", component: TriviaGameComponent },
+    { path: 'mixed-latters-game', component: MixedLettersGameComponent }
+
 ]
 

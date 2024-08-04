@@ -35,5 +35,12 @@ export class DialogGameComponent {
   getCategoryWordsCount(category: Category): number {
     return category.words.length;
   }
-   
-}
+  onPlayClick(): void {
+    if (this.selectedCategory) {
+      console.log('Selected category in dialog:', this.selectedCategory);
+      this.dialogRef.close({ category: this.selectedCategory });
+    }
+  }
+
+
+}  
