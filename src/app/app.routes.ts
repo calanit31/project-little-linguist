@@ -7,9 +7,10 @@ import { TriviaComponent } from './trivia/trivia.component';
 import { MixedLettersComponent } from './mixed-letters/mixed-letters.component';
 import { WordSorterComponent } from './word-sorter/word-sorter.component';
 import { GameCardComponent } from './game-card/game-card.component';
+import { WordSorterGameComponent } from './word-sorter-game/word-sorter-game.component';
 
 export const routes: Routes = [
-    { path: "", component: DashboardComponent },
+    { path: '', component: DashboardComponent },
     { path: "category", component: CategoriesListComponent },
     { path: "category/:id", component: CategoryFormComponent },
     { path: "newcategory", component: CategoryFormComponent },
@@ -18,5 +19,7 @@ export const routes: Routes = [
     { path: "trivia-options", component: TriviaComponent },
     { path: "mixed-latters", component: MixedLettersComponent },
     { path: "word-sorter", component: WordSorterComponent },
-   {  path: "game" , component:GameCardComponent } 
+    { path: "game", component: GameCardComponent } 
+  
 ]
+

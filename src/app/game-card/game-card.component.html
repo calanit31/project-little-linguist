@@ -1,16 +1,8 @@
 <h1>Let's Play</h1>
 <div class="grid">
-    @for (item of gameService.getGames(); track $index) {
-        <mat-card class="card" (click)="goTo(item)">
-    
-          <mat-card-title class="title">
-                {{item.name}}
-          </mat-card-title> 
-    
-          <mat-card-content class="content">
-            {{item.description}}
-          </mat-card-content>
-        </mat-card>
-    }
-
+  <mat-card class="card" *ngFor="let item of gameService.getGames()" (click)="openDialog(item)">
+    <mat-card-title class="title">{{ item.name }}</mat-card-title>
+    <mat-card-content class="content">{{ item.description }}</mat-card-content>
+  </mat-card>
 </div>
+

@@ -1,0 +1,20 @@
+
+<mat-dialog-content>
+  <p>Choose category to play</p>
+  <mat-form-field>
+    <mat-label>Animals</mat-label>
+    <mat-select (selectionChange)="onCategoryChange($event.value)">
+      <mat-option *ngFor="let category of categories" [value]="category">
+        {{ category.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="selectedCategory" style="margin-top: 20px;">
+    <p>Last Update: {{ selectedCategory.lastUpdateDate | date: 'short' }}</p>
+    <p>Words: {{ getCategoryWordsCount(selectedCategory) }}</p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">ביטול</button>
+  <button mat-button [mat-dialog-close]="data.game.url">Play</button>
+</mat-dialog-actions>
