@@ -1,1 +1,47 @@
-<h1> word sorter - {{ category?.name }} </h1>
+
+
+<div *ngIf="gameOver" class="container">
+    <h1> Word Sorter  - {{currentCategory.name}}</h1>
+    <p style="text-align: center;">Grade: {{correctAnswers.size * 10}}</p>
+    <p>You guessed {{correctAnswers.size}} out of 10 words successfully</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Origin</th>
+                <th>Category</th>
+                <th>Guess</th>
+            </tr>
+        </thead>
+         <tbody>
+                <tr *ngFor="let word of usedWords">
+                    <td>{{word.origin}}</td>
+                    <td>{{getCategory(word)}}</td>
+                    <td>{{correctAnswers.has(word) ? 'Yes' : 'No'}}</td>
+                </tr>
+         </tbody>   
+    </table>
+<br/>
+    <div style="display: flex; flex-direction: row; align-items: center; gap:.5rem;">
+
+        <button (click)="exit()">Exit</button>
+    </div>
+</div>
+<div *ngIf="!gameOver" class="container">
+    <h1> Word Sorter  - {{currentCategory.name}}</h1>
+    <p>is <b>{{currentWord.origin}}</b> part of <b>{{currentCategory.name}}</b>?</p>
+
+    <div class="buttons-container">
+        <button [disabled]="gameOver" (click)="onYes()">Yes</button>
+        <button [disabled]="gameOver" (click)="onNo()">No</button>
+    </div>
+    <br/>
+    <div style="position: relative; display: flex; align-items: center; width: 500px; justify-content: space-between;">
+         <div style="z-index: 100;" class="level">{{level}}</div>
+         <div class="progress" [ngStyle]="{right: getRight()}" #progressBar></div>    
+         <div class="progress progress-soft"></div>    
+         <div style="z-index: 100;" class="level">10</div>
+    </div>
+
+    
+</div>

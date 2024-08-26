@@ -9,24 +9,32 @@ export class CategoriesService {
   private readonly CATEGORIES_KEY = 'categories';
   private readonly NEXT_ID_KEY = 'nextId';
 
-  private getCategories() : Map<number, Category>{
+  private getCategories() : Map<number, Category> {
     let categoriesString = localStorage.getItem(this.CATEGORIES_KEY);
 
     if (!categoriesString) {
       return new Map<number, Category>();
     } else {
-      return new Map<number, Category>(JSON.parse(categoriesString));
+      let parsedCategories = JSON.parse(categoriesString);
+
+      // Ensure it's an array of key-value pairs
+      if (Array.isArray(parsedCategories)) {
+        return new Map<number, Category>(parsedCategories);
+      } else {
+        
+        return new Map<number, Category>();
+      }
     }
   }
 
   private getNextId() : number {
     let nextIdString = localStorage.getItem(this.NEXT_ID_KEY); 
-
     return nextIdString ? parseInt(nextIdString) : 0;
   }
 
+
   private setCategories(list : Map<number, Category>) : void {
-    localStorage.setItem(this.CATEGORIES_KEY, JSON.stringify(Array.from(list)));
+    localStorage.setItem(this.CATEGORIES_KEY, JSON.stringify(Array.from(list.entries())));
   }
 
   private setNextId(id : number) : void {
