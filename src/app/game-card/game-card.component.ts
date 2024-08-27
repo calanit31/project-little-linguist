@@ -1,4 +1,4 @@
-import { Component,inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 
@@ -7,46 +7,42 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { DialogGameComponent } from '../dialog-game/dialog-game.component';
 import { Category } from '../../shared/model/category';
+import { GameProfile } from '../../shared/model/game-profile';
+import { CategoriesService } from '../services/categories.service';
 @Component({
   selector: 'app-game-card',
   standalone: true,
-  imports: [MatCardModule,MatDialogModule,CommonModule],
+  imports: [MatCardModule, MatDialogModule, CommonModule],
   templateUrl: './game-card.component.html',
-  styleUrl: './game-card.component.css'
+  styleUrl: './game-card.component.css',
 })
 export class GameCardComponent {
   gameService = inject(GamesService);
   dialog = inject(MatDialog);
-  
-  constructor(private router: Router) {}
 
-  openDialog(item: any): void {
+  constructor(
+    private router: Router,
+    private categoryService: CategoriesService
+  ) {}
+
+  openDialog(item: GameProfile): void {
     const dialogRef = this.dialog.open(DialogGameComponent, {
       width: '350px',
-      data: { game: item }
+      data: { game: item },
     });
-  
-    dialogRef.afterClosed().subscribe(result => {
+
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog result:', result);
       if (result && result.category) {
         this.goTo(item, result.category);
       }
     });
   }
-  
-  goTo(item: any, category: Category) {
-    console.log('Navigating to:', item.name, 'with category:', category);
-    const route = this.getRoute(item.name);
-    console.log('Route found:', route);
-    if (route) {
-      this.router.navigate([route], { queryParams: { category: JSON.stringify(category) } })
-        .then(success => console.log('Navigation success:', success))
-        .catch(err => console.log('Navigation error:', err));
-    } else {
-      console.log('No route found for game:', item.name);
-    }
+
+  goTo(item: GameProfile, category: Category) {
+
+    this.router.navigate([item.url], {queryParams:{id:category.id}});
   }
-  
 
   getRoute(gameName: string): string | null {
     switch (gameName) {
@@ -60,4 +56,4 @@ export class GameCardComponent {
         return null;
     }
   }
- }  
+}

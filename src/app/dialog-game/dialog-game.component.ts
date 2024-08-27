@@ -1,7 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import {
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { GameProfile } from '../../shared/model/game-profile';
-import {  MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -12,14 +16,22 @@ import { Category } from '../../shared/model/category';
 @Component({
   selector: 'app-dialog-game',
   standalone: true,
-  imports: [CommonModule,MatDialogModule,MatFormFieldModule,MatInputModule,MatSelectModule,MatButtonModule,MatSelectModule],
-  templateUrl: './dialog-game.component.html', 
-  styleUrls: ['./dialog-game.component.css']  
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatSelectModule,
+  ],
+  templateUrl: './dialog-game.component.html',
+  styleUrls: ['./dialog-game.component.css'],
 })
 export class DialogGameComponent {
-  categories = categories; 
+  categories = categories;
   selectedCategory: Category | null = null;
-  
+
   constructor(
     public dialogRef: MatDialogRef<DialogGameComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { game: GameProfile }
@@ -41,6 +53,4 @@ export class DialogGameComponent {
       this.dialogRef.close({ category: this.selectedCategory });
     }
   }
-
-
-}  
+}

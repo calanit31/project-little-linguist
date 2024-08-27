@@ -8,10 +8,9 @@ describe('MixedLettersGameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MixedLettersGameComponent]
-    })
-    .compileComponents();
-    
+      imports: [MixedLettersGameComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(MixedLettersGameComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

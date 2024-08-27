@@ -7,12 +7,12 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
   standalone: true,
   imports: [MatDialogModule, MatButtonModule],
   templateUrl: './exit-confirmation-dialog.component.html',
-  styleUrls: ['./exit-confirmation-dialog.component.css'],
+  styleUrl: './exit-confirmation-dialog.component.css',
 })
 export class ExitConfirmationDialogComponent {
   constructor(public dialogRef: MatDialogRef<ExitConfirmationDialogComponent>) {}
 
   onNoClick(): void {
-    this.dialogRef.close('no'); // סגור את הדיאלוג והחזר 'no'
+    this.dialogRef.close('no'); 
   }
 }

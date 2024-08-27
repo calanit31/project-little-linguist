@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, ViewRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
@@ -9,16 +9,23 @@ import { Category } from '../../shared/model/category';
 import { TranslatedWord } from '../../shared/model/translated-word';
 import { categories } from '../../shared/data/categories';
 import { ExitConfirmationDialogComponent } from '../exit-confirmation-dialog/exit-confirmation-dialog.component';
+import { CategoriesService } from '../services/categories.service';
 
 @Component({
   selector: 'app-word-sorter-game',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatDialogModule, MatButtonModule, ExitConfirmationDialogComponent],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatDialogModule,
+    MatButtonModule,
+    ExitConfirmationDialogComponent,
+  ],
   providers: [CdkColumnDef],
   templateUrl: './word-sorter-game.component.html',
-  styleUrls: ['./word-sorter-game.component.css']
+  styleUrls: ['./word-sorter-game.component.css'],
 })
-export class WordSorterGameComponent {
+export class WordSorterGameComponent implements OnInit {
   usedWords = new Set<TranslatedWord>();
   currentWord!: TranslatedWord;
   currentCategory!: Category;
@@ -27,8 +34,23 @@ export class WordSorterGameComponent {
   incorrectAnswers: Set<TranslatedWord> = new Set();
   gameOver: boolean = false;
 
-  constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog,
+    private categoryService: CategoriesService
+  ) {
     this.nextTurn();
+  }
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      if (params['id']) {
+        const cat = this.categoryService.getCatgoryById(+params['id']);
+        if (cat) {
+          this.currentCategory = cat;
+        }
+      }
+    });
   }
 
   newGame() {
@@ -41,13 +63,13 @@ export class WordSorterGameComponent {
   }
 
   exit() {
-    const dialogRef = this.dialog.open(ExitConfirmationDialogComponent); // פתיחת דיאלוג
+    const dialogRef = this.dialog.open(ExitConfirmationDialogComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        this.router.navigate(['/game']); // נווט למסך בחירת המשחק אם המשתמש מאשר
+        this.router.navigate(['/game']);
       } else if (result === 'no') {
-        this.newGame(); // התחל משחק חדש אם המשתמש בוחר "לא"
+        this.newGame();
       }
     });
   }
@@ -57,17 +79,27 @@ export class WordSorterGameComponent {
   }
 
   getCategory(word: TranslatedWord) {
-    return categories.find(c => c.words.find(w => w.origin === word.origin))?.name;
+    return categories.find((c) => c.words.find((w) => w.origin === word.origin))
+      ?.name;
   }
 
   getRandom(): [Category, TranslatedWord] {
-    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-    let randCategoryForWord = categories[Math.floor(Math.random() * categories.length)];
-    let randomWord = randCategoryForWord.words[Math.floor(Math.random() * randCategoryForWord.words.length)];
+    const randomCategory =
+      categories[Math.floor(Math.random() * categories.length)];
+    let randCategoryForWord =
+      categories[Math.floor(Math.random() * categories.length)];
+    let randomWord =
+      randCategoryForWord.words[
+        Math.floor(Math.random() * randCategoryForWord.words.length)
+      ];
 
     while (this.usedWords.has(randomWord)) {
-      randCategoryForWord = categories[Math.floor(Math.random() * categories.length)];
-      randomWord = randCategoryForWord.words[Math.floor(Math.random() * randCategoryForWord.words.length)];
+      randCategoryForWord =
+        categories[Math.floor(Math.random() * categories.length)];
+      randomWord =
+        randCategoryForWord.words[
+          Math.floor(Math.random() * randCategoryForWord.words.length)
+        ];
     }
 
     return [randomCategory, randomWord];
@@ -95,7 +127,11 @@ export class WordSorterGameComponent {
 
   onYes() {
     if (this.gameOver) return;
-    if (this.currentCategory.words.find(w => w.origin === this.currentWord.origin)) {
+    if (
+      this.currentCategory.words.find(
+        (w) => w.origin === this.currentWord.origin
+      )
+    ) {
       this.correctAnswers.add(this.currentWord);
     } else {
       this.incorrectAnswers.add(this.currentWord);
@@ -105,7 +141,11 @@ export class WordSorterGameComponent {
 
   onNo() {
     if (this.gameOver) return;
-    if (!this.currentCategory.words.find(w => w.origin === this.currentWord.origin)) {
+    if (
+      !this.currentCategory.words.find(
+        (w) => w.origin === this.currentWord.origin
+      )
+    ) {
       this.correctAnswers.add(this.currentWord);
     } else {
       this.incorrectAnswers.add(this.currentWord);
