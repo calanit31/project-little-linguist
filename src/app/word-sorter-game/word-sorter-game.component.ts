@@ -10,6 +10,9 @@ import { TranslatedWord } from '../../shared/model/translated-word';
 import { categories } from '../../shared/data/categories';
 import { ExitConfirmationDialogComponent } from '../exit-confirmation-dialog/exit-confirmation-dialog.component';
 import { CategoriesService } from '../services/categories.service';
+import { SuccessOrFailureDialogComponent } from '../success-or-failure-dialog/success-or-failure-dialog.component';
+import { PointsGameComponent } from '../points-game/points-game.component';
+import { GamesService } from '../services/game.service';
 
 @Component({
   selector: 'app-word-sorter-game',
@@ -20,6 +23,7 @@ import { CategoriesService } from '../services/categories.service';
     MatDialogModule,
     MatButtonModule,
     ExitConfirmationDialogComponent,
+    PointsGameComponent,
   ],
   providers: [CdkColumnDef],
   templateUrl: './word-sorter-game.component.html',
@@ -33,12 +37,14 @@ export class WordSorterGameComponent implements OnInit {
   correctAnswers: Set<TranslatedWord> = new Set();
   incorrectAnswers: Set<TranslatedWord> = new Set();
   gameOver: boolean = false;
+  private point: number = 0;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    private categoryService: CategoriesService
+    private categoryService: CategoriesService,
+    private gameService: GamesService
   ) {
     this.nextTurn();
   }
@@ -48,6 +54,7 @@ export class WordSorterGameComponent implements OnInit {
         const cat = this.categoryService.getCatgoryById(+params['id']);
         if (cat) {
           this.currentCategory = cat;
+          this.point = Math.floor(100 / 6);
         }
       }
     });
@@ -59,6 +66,7 @@ export class WordSorterGameComponent implements OnInit {
     this.incorrectAnswers.clear();
     this.usedWords.clear();
     this.level = 1;
+    this.gameService.initGrade();
     this.nextTurn();
   }
 
@@ -114,7 +122,7 @@ export class WordSorterGameComponent implements OnInit {
 
   proceed() {
     this.level++;
-    if (this.level < 10) {
+    if (this.level <= 6) {
       this.nextTurn();
     } else {
       this.finishGame();
@@ -133,10 +141,12 @@ export class WordSorterGameComponent implements OnInit {
       )
     ) {
       this.correctAnswers.add(this.currentWord);
+      this.gameService.addGrade(this.point);
+      this.openDialog('success');
     } else {
       this.incorrectAnswers.add(this.currentWord);
+      this.openDialog('failed');
     }
-    this.proceed();
   }
 
   onNo() {
@@ -147,9 +157,24 @@ export class WordSorterGameComponent implements OnInit {
       )
     ) {
       this.correctAnswers.add(this.currentWord);
+      this.gameService.addGrade(this.point);
+      this.openDialog('success');
     } else {
       this.incorrectAnswers.add(this.currentWord);
+      this.openDialog('failed');
     }
-    this.proceed();
+    //    this.proceed();
+  }
+  public getGrade() {
+    return this.gameService.getGrade();
+  }
+  openDialog(message: string) {
+    const dialogRef = this.dialog.open(SuccessOrFailureDialogComponent, {
+      width: '350px',
+      data: message,
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.proceed();
+    });
   }
 }

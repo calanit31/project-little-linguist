@@ -1,74 +1,82 @@
 .container {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    width: fit-content;
-    margin-inline: auto;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  width: fit-content;
+  margin-inline: auto;
+  flex-direction: column;
 }
 .container p {
-    border:1px solid lightgray;
-    padding:1rem;
-    min-width: 200px;
-    font-size: 22px;
+  border: 1px solid lightgray;
+  padding: 1rem;
+  min-width: 200px;
+  font-size: 22px;
 }
 
 .buttons-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap:1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
 }
 button {
-    padding:.5rem;
-    width: 150px;
-    font-size: 24px;
-    cursor: pointer;
-    border:1px solid lightgray;
+  padding: 0.5rem;
+  width: 150px;
+  font-size: 24px;
+  cursor: pointer;
+  border: 1px solid lightgray;
 }
 button:hover {
-    filter:brightness(85%);
-    transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  filter: brightness(85%);
+  transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .table {
-    min-width: 400px;
-    border:1px solid lightgray;
-    border-collapse: collapse;
+  min-width: 400px;
+  border: 1px solid lightgray;
+  border-collapse: collapse;
 }
 .table th {
-    color:white;
-    text-align: center;
-    background-color: rgba(0, 0, 150, 80);
+  color: white;
+  text-align: center;
+  background-color: rgba(0, 0, 150, 80);
 }
-.table tr,td,th {
-    padding:.5rem;
-    text-align: center;
-    border:1px solid lightgray;
+.table tr,
+td,
+th {
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid lightgray;
 }
 .progress {
-    left:56px;
-    background-color: rgb(168, 191, 249);
-    height:10px;
- 
-    position: absolute;
-    z-index: 90;
+  left: 56px;
+  background-color: rgb(168, 191, 249);
+  height: 10px;
+
+  position: absolute;
+  z-index: 90;
 }
 
 .progress-soft {
-    left:56px;
-    right:56px;
-    z-index: 80;
-    background-color: rgb(230, 237, 255);
+  left: 56px;
+  right: 56px;
+  z-index: 80;
+  background-color: rgb(230, 237, 255);
 }
 .level {
-    padding: 1rem;
-    text-align: center;
-    width: 20px;
-    background-color: whitesmoke;
-    border:1px solid black;
+  padding: 1rem;
+  text-align: center;
+  width: 20px;
+  background-color: whitesmoke;
+  border: 1px solid black;
 }
 
 button:active {
-    transform: translateY(4px);
-    transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transform: translateY(4px);
+  transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.points-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 80%;
 }
