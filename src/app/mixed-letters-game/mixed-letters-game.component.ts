@@ -4,11 +4,12 @@ import { Category } from '../../shared/model/category';
 import { CategoriesService } from '../services/categories.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ExitConfirmationDialogComponent } from '../exit-confirmation-dialog/exit-confirmation-dialog.component';
+import { PointsGameComponent } from "../points-game/points-game.component";
 
 @Component({
   selector: 'app-mixed-letters-game',
   standalone: true,
-  imports: [],
+  imports: [PointsGameComponent],
   templateUrl: './mixed-letters-game.component.html',
   styleUrl: './mixed-letters-game.component.css',
 })

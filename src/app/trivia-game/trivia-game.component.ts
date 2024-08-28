@@ -4,11 +4,12 @@ import { Category } from '../../shared/model/category';
 import { CategoriesService } from '../services/categories.service';
 import { ExitConfirmationDialogComponent } from '../exit-confirmation-dialog/exit-confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PointsGameComponent } from "../points-game/points-game.component";
 
 @Component({
   selector: 'app-trivia-game',
   standalone: true,
-  imports: [ExitConfirmationDialogComponent],
+  imports: [ExitConfirmationDialogComponent, PointsGameComponent],
   templateUrl: './trivia-game.component.html',
   styleUrl: './trivia-game.component.css',
 })

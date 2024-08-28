@@ -1,4 +1,9 @@
 <h1>trivia - {{ category?.name }}</h1>
+
+
+<div class="points-container">
+    <app-points-game></app-points-game>
+</div>
 <div style="display: flex; flex-direction: row; align-items: center; gap:.5rem;">
 
     <button (click)="exit()">Exit</button>
