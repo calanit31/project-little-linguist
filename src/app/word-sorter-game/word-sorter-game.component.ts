@@ -145,7 +145,7 @@ export class WordSorterGameComponent implements OnInit {
       this.openDialog('success!');
     } else {
       this.incorrectAnswers.add(this.currentWord);
-      this.openDialog('failed,try again');
+      this.openDialog('failed');
     }
   }
 

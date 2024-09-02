@@ -92,7 +92,7 @@ export class MixedLettersGameComponent implements OnInit {
       this.summaryData.push({ ...this.currentWord, success: isCorrect });
 
       this.dialog.open(SuccessOrFailureDialogComponent, {
-        data: isCorrect ? 'succes!' : 'failed, try again',
+        data: isCorrect ? 'succes!' : 'failed',
       });
 
       this.currentWordIndex++;
