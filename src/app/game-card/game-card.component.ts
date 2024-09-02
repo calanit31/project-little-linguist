@@ -40,8 +40,7 @@ export class GameCardComponent {
   }
 
   goTo(item: GameProfile, category: Category) {
-
-    this.router.navigate([item.url], {queryParams:{id:category.id}});
+    this.router.navigate([`${item.url}/${category.id}`]);
   }
 
   getRoute(gameName: string): string | null {

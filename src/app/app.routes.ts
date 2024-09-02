@@ -23,9 +23,9 @@ export const routes: Routes = [
     { path: "mixed-latters", component: MixedLettersComponent },
     { path: "word-sorter", component: WordSorterComponent },
     { path: "game", component: GameCardComponent },
-    { path: "word-sorter-game", component: WordSorterGameComponent },
-    { path: "trivia-game", component: TriviaGameComponent },
-    { path: 'mixed-latters-game', component: MixedLettersGameComponent }
+    { path: "word-sorter-game/:id", component: WordSorterGameComponent },
+    { path: "trivia-game/:id", component: TriviaGameComponent },
+    { path: 'mixed-latters-game/:id', component: MixedLettersGameComponent }
 
 ]
 

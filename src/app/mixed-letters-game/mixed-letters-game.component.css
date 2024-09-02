@@ -1,11 +1,22 @@
-button {
-    padding:.5rem;
+:host {
+    display: block;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  button {
+    padding: .5rem;
     width: 150px;
     font-size: 24px;
     cursor: pointer;
-    border:1px solid lightgray;
-}
-.points-container {
+    border: 1px solid lightgray;
+    margin-right: 10px;
+  }
+  .points-container {
     display: flex;
     justify-content: flex-end;
     width: 80%;

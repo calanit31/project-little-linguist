@@ -49,7 +49,7 @@ export class WordSorterGameComponent implements OnInit {
     this.nextTurn();
   }
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
+    this.route.params.subscribe((params) => {
       if (params['id']) {
         const cat = this.categoryService.getCatgoryById(+params['id']);
         if (cat) {
@@ -142,10 +142,10 @@ export class WordSorterGameComponent implements OnInit {
     ) {
       this.correctAnswers.add(this.currentWord);
       this.gameService.addGrade(this.point);
-      this.openDialog('success');
+      this.openDialog('success!');
     } else {
       this.incorrectAnswers.add(this.currentWord);
-      this.openDialog('failed');
+      this.openDialog('failed,try again');
     }
   }
 

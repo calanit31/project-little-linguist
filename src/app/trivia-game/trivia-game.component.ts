@@ -4,7 +4,7 @@ import { Category } from '../../shared/model/category';
 import { CategoriesService } from '../services/categories.service';
 import { ExitConfirmationDialogComponent } from '../exit-confirmation-dialog/exit-confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { PointsGameComponent } from "../points-game/points-game.component";
+import { PointsGameComponent } from '../points-game/points-game.component';
 
 @Component({
   selector: 'app-trivia-game',
@@ -23,7 +23,7 @@ export class TriviaGameComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
+    this.route.params.subscribe((params) => {
       if (params['id']) {
         this.category = this.categoryService.getCatgoryById(+params['id']);
         console.log(this.category);
