@@ -1,3 +1,7 @@
+.exit-button {
+  align-self: flex-start;
+  display: flex;
+}
 :host {
     display: block;
     max-width: 600px;

@@ -80,3 +80,7 @@ button:active {
   justify-content: flex-end;
   width: 80%;
 }
+
+.exit-button {
+  align-self: flex-start;
+}

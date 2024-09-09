@@ -1,3 +1,7 @@
+<button mat-icon-button class="exit-button" (click)="exit()">
+  <mat-icon>exit_to_app</mat-icon>
+</button>
+
 <div *ngIf="gameOver" class="container">
   <h1>Word Sorter - {{ currentCategory.name }}</h1>
   <p style="text-align: center">Grade: {{ getGrade() }}</p>
@@ -20,17 +24,11 @@
     </tbody>
   </table>
   <br />
-  <div
-    style="display: flex; flex-direction: row; align-items: center; gap: 0.5rem"
-  >
-    <button (click)="exit()">Exit</button>
-  </div>
 </div>
 <div *ngIf="!gameOver" class="container">
   <h1>Word Sorter - {{ currentCategory.name }}</h1>
   <div class="points-container">
     <app-points-game></app-points-game>
-    
   </div>
   <p>
     is <b>{{ currentWord.origin }}</b> part of <b>{{ currentCategory.name }}</b

@@ -1,10 +1,24 @@
-<h1>trivia - {{ category?.name }}</h1>
-
+<h1>Trivia- {{ category?.name }}</h1>
 
 <div class="points-container">
-    <app-points-game></app-points-game>
+  <app-points-game></app-points-game>
 </div>
-<div style="display: flex; flex-direction: row; align-items: center; gap:.5rem;">
 
-    <button (click)="exit()">Exit</button>
+<div *ngIf="currentWord" class="game-container">
+  <h2>{{ currentWord.origin }}</h2>
+  <div class="options-container">
+    <button *ngFor="let option of currentOptions" (click)="checkAnswer(option)">
+      {{ option }}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="!currentWord" class="game-over">
+  <h2>המשחק הסתיים!</h2>
+  <p>הניקוד הסופי שלך: {{ getGrade() }}</p>
+</div>
+
+<div class="controls">
+  <button (click)="exit()">Exit</button>
+  <button *ngIf="currentWord" (click)="nextWord()">מילה הבאה</button>
 </div>

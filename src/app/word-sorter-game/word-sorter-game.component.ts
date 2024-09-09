@@ -13,6 +13,7 @@ import { CategoriesService } from '../services/categories.service';
 import { SuccessOrFailureDialogComponent } from '../success-or-failure-dialog/success-or-failure-dialog.component';
 import { PointsGameComponent } from '../points-game/points-game.component';
 import { GamesService } from '../services/game.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-word-sorter-game',
@@ -24,6 +25,7 @@ import { GamesService } from '../services/game.service';
     MatButtonModule,
     ExitConfirmationDialogComponent,
     PointsGameComponent,
+    MatIconModule,
   ],
   providers: [CdkColumnDef],
   templateUrl: './word-sorter-game.component.html',
