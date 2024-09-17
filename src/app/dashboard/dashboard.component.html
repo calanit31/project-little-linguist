@@ -1,2 +1,91 @@
-<h1>You're learning:</h1>
-
+<div class="dashboard">
+  <h1>Dashboard</h1>
+  <div class="card-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>נקודות נוכחיות</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ currentPoints }}</p>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>משחקים ששוחקו</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ gamesPlayed }}</p>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>קטגוריות שנלמדו</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ categoriesLearned }}</p>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>קטגוריות שטרם נלמדו</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ categoriesRemaining }}</p>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>אחוז משחקים מושלמים</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ perfectGamesPercentage }}%</p>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>קטגוריה ששוחקה הכי הרבה</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ mostPlayedCategory }}</p>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>אחוז קטגוריות שנלמדו</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ categoriesLearnedPercentage }}%</p>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>אתגר חודשי</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ monthlyChallenge }} / 20 משחקים</p>
+        <p *ngIf="getRemainingGamesForChallenge() > 0">
+          נשארו עוד {{ getRemainingGamesForChallenge() }} משחקים לסיום האתגר
+        </p>
+        <p *ngIf="getRemainingGamesForChallenge() === 0">
+          כל הכבוד! השלמת את האתגר החודשי
+        </p>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>ימי משחק רצופים</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ getConsecutiveDaysMessage() }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -12,6 +12,15 @@
     </button>
   </div>
 </div>
+<div>
+  <mat-progress-bar
+  mode="determinate"
+  [value]="progressValue"
+></mat-progress-bar>
+
+  
+</div>
+
 
 <div *ngIf="!currentWord" class="game-over">
   <h2>המשחק הסתיים!</h2>

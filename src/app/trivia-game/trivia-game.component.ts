@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { GamesService } from '../services/game.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-trivia-game',
@@ -19,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
     PointsGameComponent,
     CommonModule,
     MatIconModule,
+    MatProgressBarModule
   ],
   templateUrl: './trivia-game.component.html',
   styleUrl: './trivia-game.component.css',
@@ -29,6 +31,7 @@ export class TriviaGameComponent implements OnInit {
   currentOptions: string[] = [];
   private words: TranslatedWord[] = [];
   private subscription: Subscription | null = null;
+  progressValue = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -91,6 +94,7 @@ export class TriviaGameComponent implements OnInit {
     }
     this.nextWord();
   }
+
 
   exit(): void {
     const dialogRef = this.dialog.open(ExitConfirmationDialogComponent);
