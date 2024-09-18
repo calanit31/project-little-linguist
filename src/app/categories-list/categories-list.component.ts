@@ -25,16 +25,20 @@ export class CategoriesListComponent implements OnInit {
   constructor(private categoriesService : CategoriesService, private dialogService : MatDialog) {}
 
   ngOnInit(): void {
-    this.dataSource = this.categoriesService.list();
+    this.categoriesService.list().then (list => {
+      this.dataSource = list;
+    })
   }
 
-  deleteCategory(id : number, name: string) {
+  deleteCategory(id : string, name: string) {
     const dialogRef = this.dialogService.open(DeleteCategoryDialogComponent, {data: name});
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.categoriesService.delete(id);
-        this.dataSource = this.categoriesService.list();
+        this.categoriesService.list().then (list => {
+          this.dataSource = list;
+        })
       }});
   }
 }

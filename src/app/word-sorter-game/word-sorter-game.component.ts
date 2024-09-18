@@ -53,11 +53,12 @@ export class WordSorterGameComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if (params['id']) {
-        const cat = this.categoryService.getCatgoryById(+params['id']);
-        if (cat) {
-          this.currentCategory = cat;
-          this.point = Math.floor(100 / 6);
-        }
+        this.categoryService.getCatgoryById(params['id']).then((category) => {
+          if (category) {
+            this.currentCategory = category;
+            this.point = Math.floor(100 / 6);
+          }
+        });
       }
     });
   }

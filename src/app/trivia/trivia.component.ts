@@ -21,7 +21,7 @@ export class TriviaComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       if (params['id']) {
-        this.category = this.categoryService.getCatgoryById(+params['id']);
+        this.categoryService.getCatgoryById(params['id'])
       }
     });
   }

@@ -44,12 +44,15 @@ export class TriviaGameComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if (params['id']) {
-        this.category = this.categoryService.getCatgoryById(+params['id']);
-        if (this.category) {
-          this.words = [...this.category.words];
-          this.shuffleArray(this.words);
-          this.nextWord();
-        }
+        this.categoryService.getCatgoryById(params['id']).then( category => {
+          this.category = category;
+          if (this.category) {
+            this.words = [...this.category.words];
+            this.shuffleArray(this.words);
+            this.nextWord();
+          }
+        })
+        
       }
     });
 

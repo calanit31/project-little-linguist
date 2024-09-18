@@ -12,7 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class DashboardComponent implements OnInit{
   currentPoints: number = 0;
-  gamesPlayed: number = 0;
+  Games: number = 0;
   categoriesLearned: number = 0;
   categoriesRemaining: number = 0;
   perfectGamesPercentage: number = 0;
@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit{
     // כאן תהיה הלוגיקה לטעינת הנתונים האמיתיים מה-Firestore
     // לדוגמה:
     this.currentPoints = 1000;
-    this.gamesPlayed = 50;
+    this.Games = 50;
     this.categoriesLearned = 10;
     this.categoriesRemaining = 5;
     this.perfectGamesPercentage = 80;

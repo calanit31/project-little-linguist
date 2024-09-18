@@ -1,9 +1,9 @@
 <div class="dashboard">
-  <h1>Dashboard</h1>
+  <h1>Your learning:</h1>
   <div class="card-container">
     <mat-card>
       <mat-card-header>
-        <mat-card-title>נקודות נוכחיות</mat-card-title>
+        <mat-card-title>Points</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <p>{{ currentPoints }}</p>
@@ -12,16 +12,16 @@
     
     <mat-card>
       <mat-card-header>
-        <mat-card-title>משחקים ששוחקו</mat-card-title>
+        <mat-card-title>Games</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>{{ gamesPlayed }}</p>
+        <p>{{ Games }}</p>
       </mat-card-content>
     </mat-card>
     
     <mat-card>
       <mat-card-header>
-        <mat-card-title>קטגוריות שנלמדו</mat-card-title>
+        <mat-card-title>Categories Learned</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <p>{{ categoriesLearned }}</p>
@@ -30,7 +30,7 @@
     
     <mat-card>
       <mat-card-header>
-        <mat-card-title>קטגוריות שטרם נלמדו</mat-card-title>
+        <mat-card-title>Categories Remaining</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <p>{{ categoriesRemaining }}</p>
@@ -39,7 +39,7 @@
     
     <mat-card>
       <mat-card-header>
-        <mat-card-title>אחוז משחקים מושלמים</mat-card-title>
+        <mat-card-title> Perfect Games </mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <p>{{ perfectGamesPercentage }}%</p>
@@ -48,7 +48,7 @@
     
     <mat-card>
       <mat-card-header>
-        <mat-card-title>קטגוריה ששוחקה הכי הרבה</mat-card-title>
+        <mat-card-title> Most Played Category  </mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <p>{{ mostPlayedCategory }}</p>
@@ -57,7 +57,7 @@
     
     <mat-card>
       <mat-card-header>
-        <mat-card-title>אחוז קטגוריות שנלמדו</mat-card-title>
+        <mat-card-title> Categories Learned Percentage </mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <p>{{ categoriesLearnedPercentage }}%</p>
@@ -66,7 +66,7 @@
     
     <mat-card>
       <mat-card-header>
-        <mat-card-title>אתגר חודשי</mat-card-title>
+        <mat-card-title> Monthly Challenge</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <p>{{ monthlyChallenge }} / 20 משחקים</p>
@@ -74,14 +74,13 @@
           נשארו עוד {{ getRemainingGamesForChallenge() }} משחקים לסיום האתגר
         </p>
         <p *ngIf="getRemainingGamesForChallenge() === 0">
-          כל הכבוד! השלמת את האתגר החודשי
-        </p>
+          Good! You have completed the monthly challenge        </p>
       </mat-card-content>
     </mat-card>
     
     <mat-card>
       <mat-card-header>
-        <mat-card-title>ימי משחק רצופים</mat-card-title>
+        <mat-card-title>Days Strike </mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <p>{{ getConsecutiveDaysMessage() }}</p>
