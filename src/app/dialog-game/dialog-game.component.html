@@ -1,4 +1,3 @@
-
 <mat-dialog-content>
   <p>Choose category to play</p>
   <mat-form-field>
@@ -9,12 +8,18 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <div *ngIf="selectedCategory" style="margin-top: 20px;">
-    <p>Last Update: {{ selectedCategory.lastUpdateDate | date: 'short' }}</p>
+  <div *ngIf="selectedCategory" style="margin-top: 20px">
+    <p>Last Update: {{ selectedCategory.lastUpdateDate | date : "short" }}</p>
     <p>Words: {{ getCategoryWordsCount(selectedCategory) }}</p>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button (click)="onPlayClick()" [disabled]="selectedCategory === null">Play</button>
+  <button
+    mat-button
+    (click)="onPlayClick()"
+    [disabled]="selectedCategory === null"
+  >
+    Play
+  </button>
 </mat-dialog-actions>

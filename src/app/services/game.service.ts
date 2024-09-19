@@ -6,29 +6,29 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class GamesService {
-  private grade:number = 0;
+  private grade: number = 0;
   private gradeSubject = new Subject<number>();
 
-  public gradeListener(){
+  public gradeListener() {
     return this.gradeSubject.asObservable();
   }
 
-  public addGrade(grade: number){
-    if(this.grade + grade < 0){
+  public addGrade(grade: number) {
+    if (this.grade + grade < 0) {
       return;
-    }else if(this.grade + grade*2 > 100){
+    } else if (this.grade + grade * 2 > 100) {
       this.grade = 100;
-    }else{
+    } else {
       this.grade += grade;
     }
     this.gradeSubject.next(this.grade);
   }
-  public initGrade(){
+  public initGrade() {
     this.grade = 0;
     this.gradeSubject.next(this.grade);
   }
 
-  public getGrade(){
+  public getGrade() {
     return this.grade;
   }
   private games: GameProfile[] = [

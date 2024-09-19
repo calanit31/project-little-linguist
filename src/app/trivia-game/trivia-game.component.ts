@@ -20,7 +20,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     PointsGameComponent,
     CommonModule,
     MatIconModule,
-    MatProgressBarModule
+    MatProgressBarModule,
   ],
   templateUrl: './trivia-game.component.html',
   styleUrl: './trivia-game.component.css',
@@ -44,15 +44,14 @@ export class TriviaGameComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if (params['id']) {
-        this.categoryService.getCatgoryById(params['id']).then( category => {
+        this.categoryService.getCatgoryById(params['id']).then((category) => {
           this.category = category;
           if (this.category) {
             this.words = [...this.category.words];
             this.shuffleArray(this.words);
             this.nextWord();
           }
-        })
-        
+        });
       }
     });
 
@@ -97,7 +96,6 @@ export class TriviaGameComponent implements OnInit {
     }
     this.nextWord();
   }
-
 
   exit(): void {
     const dialogRef = this.dialog.open(ExitConfirmationDialogComponent);

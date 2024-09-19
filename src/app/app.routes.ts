@@ -13,19 +13,16 @@ import { TriviaGameComponent } from './trivia-game/trivia-game.component';
 import { MixedLettersGameComponent } from './mixed-letters-game/mixed-letters-game.component';
 
 export const routes: Routes = [
-    { path: '', component: DashboardComponent },
-    { path: "category", component: CategoriesListComponent },
-    { path: "category/:id", component: CategoryFormComponent },
-    { path: "newcategory", component: CategoryFormComponent },
-    { path: "help", component: HelpGameComponent },
-
-    { path: "trivia-options", component: TriviaComponent },
-    { path: "mixed-latters", component: MixedLettersComponent },
-    { path: "word-sorter", component: WordSorterComponent },
-    { path: "game", component: GameCardComponent },
-    { path: "word-sorter-game/:id", component: WordSorterGameComponent },
-    { path: "trivia-game/:id", component: TriviaGameComponent },
-    { path: 'mixed-latters-game/:id', component: MixedLettersGameComponent }
-
-]
-
+  { path: '', component: DashboardComponent },
+  { path: 'category', component: CategoriesListComponent },
+  { path: 'category/:id', component: CategoryFormComponent },
+  { path: 'newcategory', component: CategoryFormComponent },
+  { path: 'help', component: HelpGameComponent },
+  { path: 'trivia-options', component: TriviaComponent },
+  { path: 'mixed-latters', component: MixedLettersComponent },
+  { path: 'word-sorter', component: WordSorterComponent },
+  { path: 'game', component: GameCardComponent },
+  { path: 'word-sorter-game/:id', component: WordSorterGameComponent },
+  { path: 'trivia-game/:id', component: TriviaGameComponent },
+  { path: 'mixed-latters-game/:id', component: MixedLettersGameComponent },
+];

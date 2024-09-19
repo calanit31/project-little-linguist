@@ -10,9 +10,11 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
   styleUrl: './exit-confirmation-dialog.component.css',
 })
 export class ExitConfirmationDialogComponent {
-  constructor(public dialogRef: MatDialogRef<ExitConfirmationDialogComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<ExitConfirmationDialogComponent>
+  ) {}
 
   onNoClick(): void {
-    this.dialogRef.close('no'); 
+    this.dialogRef.close('no');
   }
 }

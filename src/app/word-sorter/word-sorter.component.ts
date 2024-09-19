@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './word-sorter.component.html',
-  styleUrl: './word-sorter.component.css'
+  styleUrl: './word-sorter.component.css',
 })
-export class WordSorterComponent {
-
-}
+export class WordSorterComponent {}

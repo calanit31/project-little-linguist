@@ -35,7 +35,7 @@ export class GameResultsService {
   }
 
   // שליפת רשימת המשחקים של המשתמש הנוכחי
-  async list(userId: string): Promise<GameResult[]> {
+  async list(): Promise<GameResult[]> {
     // page 55
     const gameResultCollection = collection(
       this.firestoreService,
@@ -45,7 +45,7 @@ export class GameResultsService {
     const results: GameResult[] = [];
     snapshot.docs.forEach((docSnapshot: DocumentSnapshot<GameResult>) => {
       const data = docSnapshot.data();
-      if (data && data.userId === userId) {
+      if (data) {
         results.push(data);
       }
     });

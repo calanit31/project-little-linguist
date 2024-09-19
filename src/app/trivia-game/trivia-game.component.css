@@ -1,33 +1,32 @@
-h1{
-    text-align: center;
+h1 {
+  text-align: center;
 }
 .game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-  }
-  .options-container {
-    display:fleס;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  .controls {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-  }
-  button {
-    padding: 0.5rem;
-    width: 150px;
-    font-size: 18px;
-    cursor: pointer;
-    border: 1px solid lightgray;
-  }
-  .points-container {
-    display: flex;
-    justify-content: flex-end;
-    width: 80%;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+.options-container {
+  display: fleס;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+button {
+  padding: 0.5rem;
+  width: 150px;
+  font-size: 18px;
+  cursor: pointer;
+  border: 1px solid lightgray;
+}
+.points-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 80%;
+}

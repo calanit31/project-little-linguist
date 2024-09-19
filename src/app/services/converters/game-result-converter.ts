@@ -11,7 +11,7 @@ import { GameResult } from '../../../shared/model/game-result';
 const GameResultConverter = {
   toFirestore: (gameResult: GameResult) => {
     return {
-        userId: gameResult.userId,
+        //userId: gameResult.userId,
       categoryId: gameResult.categoryId,
       gameId: gameResult.gameId,
       date: Timestamp.fromDate(gameResult.date),
@@ -25,7 +25,7 @@ const GameResultConverter = {
     const data = snapshot.data(options);
     const gameResult = new GameResult(
       //snapshot.id,
-      data['userId'],
+      //data['userId'],
       data['categoryId'],
       data['gameId'],
       data['date'].toDate(),

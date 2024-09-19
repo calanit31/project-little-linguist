@@ -9,7 +9,7 @@
         <p>{{ currentPoints }}</p>
       </mat-card-content>
     </mat-card>
-    
+
     <mat-card>
       <mat-card-header>
         <mat-card-title>Games</mat-card-title>
@@ -18,7 +18,7 @@
         <p>{{ Games }}</p>
       </mat-card-content>
     </mat-card>
-    
+
     <mat-card>
       <mat-card-header>
         <mat-card-title>Categories Learned</mat-card-title>
@@ -27,7 +27,7 @@
         <p>{{ categoriesLearned }}</p>
       </mat-card-content>
     </mat-card>
-    
+
     <mat-card>
       <mat-card-header>
         <mat-card-title>Categories Remaining</mat-card-title>
@@ -36,7 +36,7 @@
         <p>{{ categoriesRemaining }}</p>
       </mat-card-content>
     </mat-card>
-    
+
     <mat-card>
       <mat-card-header>
         <mat-card-title> Perfect Games </mat-card-title>
@@ -45,16 +45,16 @@
         <p>{{ perfectGamesPercentage }}%</p>
       </mat-card-content>
     </mat-card>
-    
+
     <mat-card>
       <mat-card-header>
-        <mat-card-title> Most Played Category  </mat-card-title>
+        <mat-card-title> Most Played Category </mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <p>{{ mostPlayedCategory }}</p>
       </mat-card-content>
     </mat-card>
-    
+
     <mat-card>
       <mat-card-header>
         <mat-card-title> Categories Learned Percentage </mat-card-title>
@@ -63,7 +63,7 @@
         <p>{{ categoriesLearnedPercentage }}%</p>
       </mat-card-content>
     </mat-card>
-    
+
     <mat-card>
       <mat-card-header>
         <mat-card-title> Monthly Challenge</mat-card-title>
@@ -74,10 +74,11 @@
           נשארו עוד {{ getRemainingGamesForChallenge() }} משחקים לסיום האתגר
         </p>
         <p *ngIf="getRemainingGamesForChallenge() === 0">
-          Good! You have completed the monthly challenge        </p>
+          Good! You have completed the monthly challenge
+        </p>
       </mat-card-content>
     </mat-card>
-    
+
     <mat-card>
       <mat-card-header>
         <mat-card-title>Days Strike </mat-card-title>

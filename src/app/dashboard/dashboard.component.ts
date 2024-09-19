@@ -1,16 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-
+import { GameResultsService } from '../services/game-results.service';
+import { CategoriesService } from '../services/categories.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule,MatCardModule],
+  imports: [CommonModule, MatCardModule],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit {
   currentPoints: number = 0;
   Games: number = 0;
   categoriesLearned: number = 0;
@@ -21,7 +22,10 @@ export class DashboardComponent implements OnInit{
   monthlyChallenge: number = 0;
   consecutiveDays: number = 0;
 
-  constructor() { }
+  constructor(
+    private gameResultService: GameResultsService,
+    private categoriesService: CategoriesService
+  ) {}
 
   ngOnInit(): void {
     this.loadDashboardData();
@@ -30,11 +34,30 @@ export class DashboardComponent implements OnInit{
   loadDashboardData(): void {
     // כאן תהיה הלוגיקה לטעינת הנתונים האמיתיים מה-Firestore
     // לדוגמה:
-    this.currentPoints = 1000;
-    this.Games = 50;
-    this.categoriesLearned = 10;
-    this.categoriesRemaining = 5;
-    this.perfectGamesPercentage = 80;
+    this.gameResultService.list().then((gameResultList) => {
+      const categories: string[] = [];
+      for (const result of gameResultList) {
+        this.currentPoints += result.points;
+        if (!categories.includes(result.categoryId)) {
+          categories.push(result.categoryId);
+        }
+        if (result.points == 100) {
+          this.perfectGamesPercentage++;
+        }
+      }
+      this.Games = gameResultList.length;
+      this.categoriesLearned = categories.length;
+      this.categoriesService.list().then((categoryList) => {
+        this.categoriesRemaining = categoryList.length - this.categoriesLearned;
+      });
+      this.perfectGamesPercentage =
+        (this.perfectGamesPercentage / this.Games) * 100;
+    });
+    //this.currentPoints = 1000;
+    //this.Games = 50;
+    //this.categoriesLearned = 10;
+    // this.categoriesRemaining = 5;
+    //this.perfectGamesPercentage = 80;
     this.mostPlayedCategory = 'Animals';
     this.categoriesLearnedPercentage = 66;
     this.monthlyChallenge = 15;
@@ -46,7 +69,6 @@ export class DashboardComponent implements OnInit{
   }
 
   getConsecutiveDaysMessage(): string {
-    return `${this.consecutiveDays} ימים רצופים`;
+    return `${this.consecutiveDays} `;
   }
 }
-

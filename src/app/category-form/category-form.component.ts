@@ -28,7 +28,12 @@ import { Language } from '../../shared/model/language';
   styleUrl: './category-form.component.css',
 })
 export class CategoryFormComponent implements OnInit {
-  currentCategory: Category = new Category('-1', 'dummy', Language.Hebrew, Language.English);
+  currentCategory: Category = new Category(
+    '-1',
+    'dummy',
+    Language.Hebrew,
+    Language.English
+  );
   displayedColumns: string[] = ['Origin', 'Target', 'Actions'];
 
   @Input()

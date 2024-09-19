@@ -8,9 +8,15 @@ import { HelpGameComponent } from './help-game/help-game.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule, FooterComponent, HeaderComponent,HelpGameComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FooterComponent,
+    HeaderComponent,
+    HelpGameComponent,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'little-linguist';
