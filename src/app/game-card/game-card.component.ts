@@ -49,8 +49,8 @@ export class GameCardComponent {
         return 'mixed-latters-game';
       case 'Word Sorter':
         return 'word-sorter-game';
-      case 'Trivia':
-        return 'trivia-game';
+     // case 'Trivia':
+       // return 'trivia-game';
       default:
         return null;
     }

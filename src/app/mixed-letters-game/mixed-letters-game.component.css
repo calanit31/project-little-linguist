@@ -1,6 +1,21 @@
 .exit-button {
   align-self: flex-start;
   display: flex;
+  position: relative;
+  left: -25%;
+  font-weight: bold;
+  width: auto;
+}
+.game-progress {
+  display: flex;
+}
+.game-progress > span {
+  display: inline-block;
+  width: 1rem;
+  border: 1px solid black;
+  background-color: #BBB;
+  margin: 2px;
+  text-align: center;
 }
 :host {
   display: block;

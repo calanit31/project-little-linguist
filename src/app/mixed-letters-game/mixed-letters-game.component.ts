@@ -82,6 +82,23 @@ export class MixedLettersGameComponent implements OnInit {
   }
 
   submitGuess() {
+    if (this.userGuess.trim().length == 0) {
+      this.dialog.open(SuccessOrFailureDialogComponent, {
+        data: 'Please enter an English word',
+      });
+      return;
+    }
+    for (let i = 0; i < this.userGuess.length; i++) {
+      if (
+        this.userGuess[i].toLowerCase() < 'a' ||
+        this.userGuess[i].toLowerCase() > 'z'
+      ) {
+        this.dialog.open(SuccessOrFailureDialogComponent, {
+          data: 'Please use only English letters',
+        });
+        return;
+      }
+    }
     if (this.currentWord && this.category) {
       const isCorrect =
         this.userGuess.toLowerCase() === this.currentWord.origin.toLowerCase();
@@ -94,7 +111,7 @@ export class MixedLettersGameComponent implements OnInit {
       this.summaryData.push({ ...this.currentWord, success: isCorrect });
 
       this.dialog.open(SuccessOrFailureDialogComponent, {
-        data: isCorrect ? 'succes!' : 'failed',
+        data: isCorrect ? 'success!' : 'failed',
       });
 
       this.currentWordIndex++;
@@ -122,14 +139,16 @@ export class MixedLettersGameComponent implements OnInit {
   }
 
   resetGuess() {
-    console.log('Reset button clicked');
     this.userGuess = '';
   }
   newGame() {
     this.correctAnswers = 0;
+    this.currentWordIndex = 0;
     this.userGuess = '';
     this.gameService.initGrade();
     this.gameFinished = false;
+    this.summaryData = [];
+    this.setCurrentWord();
   }
 
   exit() {

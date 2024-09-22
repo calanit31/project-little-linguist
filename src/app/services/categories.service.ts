@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../../shared/model/category';
-//import { categories } from '../../shared/data/categories';
+
 import {
   addDoc,
   collection,
@@ -9,7 +9,9 @@ import {
   Firestore,
   getDocs,
   getFirestore,
+  query,
   setDoc,
+  where,
 } from '@angular/fire/firestore';
 
 import CategoriesConverter from './converters/categories-converter';
@@ -26,7 +28,6 @@ export class CategoriesService {
   constructor(private firestoreService: Firestore) {}
   public async getCatgoryById(id: string): Promise<Category | null> {
     const categoryMap = await this.getCategories();
-    console.log(categoryMap);
 
     const category = categoryMap.get(id);
     if (category) {
@@ -37,6 +38,7 @@ export class CategoriesService {
 
   private async getCategories(): Promise<Map<string, Category>> {
     const categories = await this.list();
+
     const map = new Map<string, Category>();
     for (const cat of categories) {
       map.set(cat.id, cat);
@@ -91,6 +93,13 @@ export class CategoriesService {
         results.push(data);
       }
     });
+    // if(results.length == 0){
+    //   for (const cat of categories) {
+    //     await this.add(cat);
+    //   }
+    // }
+   
+
     return results;
     // return this.firestore.collection<GameResult>(this.collectionName, ref => ref.where('userId', '==', userId))
     // .valueChanges({ idField: 'id' });
@@ -113,12 +122,17 @@ export class CategoriesService {
     );
   }
 
-  async add(newCategory: Category) {
-    await addDoc(
-      collection(this.firestoreService, this.collectionName).withConverter(
-        CategoriesConverter
-      ),
-      newCategory
-    );
+  async add(newCategory: Category): Promise<void> {
+    const categoryCollection = collection(
+      this.firestoreService,
+      this.collectionName
+    ).withConverter(CategoriesConverter);
+
+    const q = query(categoryCollection, where('name', '==', newCategory.name));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      await addDoc(categoryCollection, newCategory);
+    }
   }
 }

@@ -7,13 +7,14 @@ import { MatTableModule } from '@angular/material/table';
 import { CdkColumnDef } from '@angular/cdk/table';
 import { Category } from '../../shared/model/category';
 import { TranslatedWord } from '../../shared/model/translated-word';
-import { categories } from '../../shared/data/categories';
+//import { categories } from '../../shared/data/categories';
 import { ExitConfirmationDialogComponent } from '../exit-confirmation-dialog/exit-confirmation-dialog.component';
 import { CategoriesService } from '../services/categories.service';
 import { SuccessOrFailureDialogComponent } from '../success-or-failure-dialog/success-or-failure-dialog.component';
 import { PointsGameComponent } from '../points-game/points-game.component';
 import { GamesService } from '../services/game.service';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-word-sorter-game',
@@ -26,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
     ExitConfirmationDialogComponent,
     PointsGameComponent,
     MatIconModule,
+    MatProgressBarModule,
   ],
   providers: [CdkColumnDef],
   templateUrl: './word-sorter-game.component.html',
@@ -34,12 +36,14 @@ import { MatIconModule } from '@angular/material/icon';
 export class WordSorterGameComponent implements OnInit {
   usedWords = new Set<TranslatedWord>();
   currentWord!: TranslatedWord;
-  currentCategory!: Category;
+  currentCategory: Category | undefined;
   level: number = 1;
   correctAnswers: Set<TranslatedWord> = new Set();
   incorrectAnswers: Set<TranslatedWord> = new Set();
   gameOver: boolean = false;
   private point: number = 0;
+  progressValue = 0;
+  categoryList: Category[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -47,9 +51,7 @@ export class WordSorterGameComponent implements OnInit {
     private dialog: MatDialog,
     private categoryService: CategoriesService,
     private gameService: GamesService
-  ) {
-    this.nextTurn();
-  }
+  ) {}
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if (params['id']) {
@@ -61,9 +63,14 @@ export class WordSorterGameComponent implements OnInit {
         });
       }
     });
+    this.categoryService.list().then((categoryList) => {
+      this.categoryList = categoryList;
+      this.nextTurn();
+    });
   }
 
   newGame() {
+    this.progressValue = 0;
     this.gameOver = false;
     this.correctAnswers.clear();
     this.incorrectAnswers.clear();
@@ -90,15 +97,16 @@ export class WordSorterGameComponent implements OnInit {
   }
 
   getCategory(word: TranslatedWord) {
-    return categories.find((c) => c.words.find((w) => w.origin === word.origin))
-      ?.name;
+    return this.categoryList.find((c) =>
+      c.words.find((w) => w.origin === word.origin)
+    )?.name;
   }
 
   getRandom(): [Category, TranslatedWord] {
     const randomCategory =
-      categories[Math.floor(Math.random() * categories.length)];
+      this.categoryList[Math.floor(Math.random() * this.categoryList.length)];
     let randCategoryForWord =
-      categories[Math.floor(Math.random() * categories.length)];
+      this.categoryList[Math.floor(Math.random() * this.categoryList.length)];
     let randomWord =
       randCategoryForWord.words[
         Math.floor(Math.random() * randCategoryForWord.words.length)
@@ -106,7 +114,7 @@ export class WordSorterGameComponent implements OnInit {
 
     while (this.usedWords.has(randomWord)) {
       randCategoryForWord =
-        categories[Math.floor(Math.random() * categories.length)];
+        this.categoryList[Math.floor(Math.random() * this.categoryList.length)];
       randomWord =
         randCategoryForWord.words[
           Math.floor(Math.random() * randCategoryForWord.words.length)
@@ -121,6 +129,7 @@ export class WordSorterGameComponent implements OnInit {
     this.currentCategory = category;
     this.currentWord = word;
     this.usedWords.add(word);
+    this.progressValue = ((this.level-1) / 6) * 100;
   }
 
   proceed() {
@@ -137,7 +146,7 @@ export class WordSorterGameComponent implements OnInit {
   }
 
   onYes() {
-    if (this.gameOver) return;
+    if (this.gameOver || !this.currentCategory) return;
     if (
       this.currentCategory.words.find(
         (w) => w.origin === this.currentWord.origin
@@ -153,7 +162,7 @@ export class WordSorterGameComponent implements OnInit {
   }
 
   onNo() {
-    if (this.gameOver) return;
+    if (this.gameOver || !this.currentCategory) return;
     if (
       !this.currentCategory.words.find(
         (w) => w.origin === this.currentWord.origin

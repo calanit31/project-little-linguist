@@ -9,4 +9,5 @@ export class TranslatedWord {
     this.english = origin;
     this.word = origin;
   }
+  
 }

@@ -13,14 +13,14 @@ import { CategoriesService } from '../services/categories.service';
 })
 export class DashboardComponent implements OnInit {
   currentPoints: number = 0;
-  Games: number = 0;
-  categoriesLearned: number = 0;
-  categoriesRemaining: number = 0;
-  perfectGamesPercentage: number = 0;
-  mostPlayedCategory: string = '';
-  categoriesLearnedPercentage: number = 0;
-  monthlyChallenge: number = 0;
-  consecutiveDays: number = 0;
+  Games: number = 0;//כמות המשחקים 
+  categoriesLearned: number = 0;//קטגוריות שנלמדו
+  categoriesRemaining: number = 0;//קטגוריות שטרם נלמדו
+  perfectGamesPercentage: number = 0;//אחוז המשחקים עם תוצאה 100
+  mostPlayedCategory: string = '';//הקטדוריה ששוחקה הכי הרבה 
+  categoriesLearnedPercentage: number = 0;//אחוז הקטגוריות שנלמדו
+  monthlyChallenge: number = 0;// אתגר חודשי 
+  consecutiveDays: number = 0;// ימי משחק רצופים
 
   constructor(
     private gameResultService: GameResultsService,
@@ -58,10 +58,10 @@ export class DashboardComponent implements OnInit {
     //this.categoriesLearned = 10;
     // this.categoriesRemaining = 5;
     //this.perfectGamesPercentage = 80;
-    this.mostPlayedCategory = 'Animals';
-    this.categoriesLearnedPercentage = 66;
-    this.monthlyChallenge = 15;
-    this.consecutiveDays = 7;
+   // this.mostPlayedCategory = 'Animals';
+   // this.categoriesLearnedPercentage = 66;
+   // this.monthlyChallenge = 15;
+    //this.consecutiveDays = 7;
   }
 
   getRemainingGamesForChallenge(): number {

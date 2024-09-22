@@ -32,20 +32,20 @@ export class GamesService {
     return this.grade;
   }
   private games: GameProfile[] = [
+   // new GameProfile(
+     // '1',
+     // 'Trivia',
+     // 'Choose every words translation from a list of 4 option',
+      //'trivia-game'
+   // ),
     new GameProfile(
       '1',
-      'Trivia',
-      'Choose every words translation from a list of 4 option',
-      'trivia-game'
-    ),
-    new GameProfile(
-      '2',
       'Mixed Letters',
       ' Practice spelling by finding the right order of letters for every word in the category',
       'mixed-latters-game'
     ),
     new GameProfile(
-      '3',
+      '2',
       'Word Sorter',
       'Generate the game description',
       'word-sorter-game'
