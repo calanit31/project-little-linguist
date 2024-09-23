@@ -20,23 +20,16 @@ export class GameResultsService {
 
   constructor(private firestoreService: Firestore) {}
 
-  // הוספת GameResult
   async addGameResult(gameResult: GameResult) {
-    //Promise<void>
-    // page 38
     await addDoc(
       collection(this.firestoreService, this.collectionName).withConverter(
         GameResultConverter
       ),
       gameResult
     );
-    //const id = this.firestoreService.createId();
-    //return this.firestoreService.collection(this.collectionName).doc(id).set({ ...gameResult, id });
   }
 
-  // שליפת רשימת המשחקים של המשתמש הנוכחי
   async list(): Promise<GameResult[]> {
-    // page 55
     const gameResultCollection = collection(
       this.firestoreService,
       this.collectionName
@@ -50,7 +43,5 @@ export class GameResultsService {
       }
     });
     return results;
-    // return this.firestoreService.collection<GameResult>(this.collectionName, ref => ref.where('userId', '==', userId))
-    //   .valueChanges({ idField: 'id' });
   }
 }

@@ -24,7 +24,9 @@
     </tbody>
   </table>
   <br />
-  <button mat-button  class="new-game-button" (click)="newGame()">New Game</button>
+  <button mat-button class="new-game-button" (click)="newGame()">
+    New Game
+  </button>
 </div>
 <div *ngIf="!gameOver && currentCategory" class="container">
   <h1>Word Sorter - {{ currentCategory ? currentCategory.name : "" }}</h1>
@@ -52,8 +54,6 @@
     "
   >
     <div style="z-index: 100" class="level">{{ level }}</div>
-    <!-- <div class="progress" [ngStyle]="{ right: getRight() }" #progressBar></div>
-    <div class="progress progress-soft"></div> -->
     <mat-progress-bar
       mode="determinate"
       [value]="progressValue"

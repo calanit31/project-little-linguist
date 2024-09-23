@@ -9,12 +9,13 @@ import { CommonModule } from '@angular/common';
 import { TranslatedWord } from '../../shared/model/translated-word';
 import { FormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { SuccessOrFailureDialogComponent } from '../success-or-failure-dialog/success-or-failure-dialog.component';
 import { GamesService } from '../services/game.service';
 import { MatInputModule } from '@angular/material/input';
+import { GameResultsService } from '../services/game-results.service';
+import { GameResult } from '../../shared/model/game-result';
 
 @Component({
   selector: 'app-mixed-letters-game',
@@ -48,7 +49,8 @@ export class MixedLettersGameComponent implements OnInit {
     private categoryService: CategoriesService,
     private dialog: MatDialog,
     private router: Router,
-    private gameService: GamesService
+    private gameService: GamesService,
+    private gameResultService: GameResultsService
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +59,7 @@ export class MixedLettersGameComponent implements OnInit {
         this.categoryService.getCatgoryById(params['id']).then((category) => {
           this.category = category;
           if (this.category) {
+            this.gameService.initGrade();
             this.pointsPerWord = Math.floor(100 / this.category.words.length);
             this.setCurrentWord();
           }
@@ -70,7 +73,7 @@ export class MixedLettersGameComponent implements OnInit {
       this.currentWord = this.category.words[this.currentWordIndex];
       this.shuffledWord = this.shuffleWord(this.currentWord.origin);
       this.progressValue =
-        ((this.currentWordIndex + 1) / this.category.words.length) * 100;
+        (this.currentWordIndex / this.category.words.length) * 100;
     }
   }
 
@@ -119,6 +122,7 @@ export class MixedLettersGameComponent implements OnInit {
         this.setCurrentWord();
       } else {
         this.gameFinished = true;
+        this.addGameResult();
       }
 
       this.userGuess = '';
@@ -140,6 +144,16 @@ export class MixedLettersGameComponent implements OnInit {
 
   resetGuess() {
     this.userGuess = '';
+  }
+  readonly gameId = 'mixed-letters';
+  addGameResult() {
+    const gameRsult = new GameResult(
+      this.category!.id,
+      this.gameId,
+      new Date(),
+      this.gameService.getGrade()
+    );
+    this.gameResultService.addGameResult(gameRsult);
   }
   newGame() {
     this.correctAnswers = 0;

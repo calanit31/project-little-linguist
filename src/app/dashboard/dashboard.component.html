@@ -57,10 +57,10 @@
 
     <mat-card>
       <mat-card-header>
-        <mat-card-title> Categories Learned Percentage </mat-card-title>
+        <mat-card-title> Most Average Game </mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>{{ categoriesLearnedPercentage }}%</p>
+        <p>{{ mostAverageGame }} </p>
       </mat-card-content>
     </mat-card>
 
@@ -69,9 +69,10 @@
         <mat-card-title> Monthly Challenge</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>{{ monthlyChallenge }} / 20 משחקים</p>
+        <h2>{{ completedChallenge }}</h2>
         <p *ngIf="getRemainingGamesForChallenge() > 0">
-          נשארו עוד {{ getRemainingGamesForChallenge() }} משחקים לסיום האתגר
+          Game this month {{ getRemainingGamesForChallenge() }} more to complete
+          challenge
         </p>
         <p *ngIf="getRemainingGamesForChallenge() === 0">
           Good! You have completed the monthly challenge

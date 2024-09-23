@@ -1,12 +1,12 @@
 h1 {
   text-align: center;
+  margin-bottom: 3rem;
 }
 .grid {
   padding: 2rem;
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
 }
 
 .card {
@@ -15,11 +15,17 @@ h1 {
   min-height: 100px;
   border-radius: 1rem;
 }
+.card:first-child {
+  background-color: rgb(111, 239, 237);
+}
+
+.card:nth-child(2) {
+  background-color: rgb(139, 222, 139);
+}
 
 .card:hover {
   transition: 0.2s linear;
   transform: translateY(3px) scale(1.05);
-
   cursor: pointer;
 }
 

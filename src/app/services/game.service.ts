@@ -32,12 +32,6 @@ export class GamesService {
     return this.grade;
   }
   private games: GameProfile[] = [
-   // new GameProfile(
-     // '1',
-     // 'Trivia',
-     // 'Choose every words translation from a list of 4 option',
-      //'trivia-game'
-   // ),
     new GameProfile(
       '1',
       'Mixed Letters',

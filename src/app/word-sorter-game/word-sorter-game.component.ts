@@ -7,7 +7,6 @@ import { MatTableModule } from '@angular/material/table';
 import { CdkColumnDef } from '@angular/cdk/table';
 import { Category } from '../../shared/model/category';
 import { TranslatedWord } from '../../shared/model/translated-word';
-//import { categories } from '../../shared/data/categories';
 import { ExitConfirmationDialogComponent } from '../exit-confirmation-dialog/exit-confirmation-dialog.component';
 import { CategoriesService } from '../services/categories.service';
 import { SuccessOrFailureDialogComponent } from '../success-or-failure-dialog/success-or-failure-dialog.component';
@@ -15,6 +14,8 @@ import { PointsGameComponent } from '../points-game/points-game.component';
 import { GamesService } from '../services/game.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { GameResultsService } from '../services/game-results.service';
+import { GameResult } from '../../shared/model/game-result';
 
 @Component({
   selector: 'app-word-sorter-game',
@@ -35,8 +36,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 })
 export class WordSorterGameComponent implements OnInit {
   usedWords = new Set<TranslatedWord>();
+  selectedWords: TranslatedWord[] = [];
   currentWord!: TranslatedWord;
   currentCategory: Category | undefined;
+  randomCategory: Category | undefined;
   level: number = 1;
   correctAnswers: Set<TranslatedWord> = new Set();
   incorrectAnswers: Set<TranslatedWord> = new Set();
@@ -50,23 +53,37 @@ export class WordSorterGameComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private categoryService: CategoriesService,
-    private gameService: GamesService
+    private gameService: GamesService,
+    private gameResultService: GameResultsService
   ) {}
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if (params['id']) {
-        this.categoryService.getCatgoryById(params['id']).then((category) => {
-          if (category) {
-            this.currentCategory = category;
-            this.point = Math.floor(100 / 6);
+        this.categoryService.list().then((categoryList) => {
+          this.categoryList = categoryList;
+          for (const cat of this.categoryList) {
+            if (cat.id == params['id']) {
+              this.currentCategory = cat;
+            }
           }
+          this.gameService.initGrade();
+          this.point = Math.floor(100 / 6);
+          this.generateRandomCategory();
+          this.generateWords();
+          this.nextTurn();
         });
       }
     });
-    this.categoryService.list().then((categoryList) => {
-      this.categoryList = categoryList;
-      this.nextTurn();
-    });
+  }
+  readonly gameId = 'word-sorter';
+  addGameResult() {
+    const gameRsult = new GameResult(
+      this.currentCategory!.id,
+      this.gameId,
+      new Date(),
+      this.gameService.getGrade()
+    );
+    this.gameResultService.addGameResult(gameRsult);
   }
 
   newGame() {
@@ -77,6 +94,9 @@ export class WordSorterGameComponent implements OnInit {
     this.usedWords.clear();
     this.level = 1;
     this.gameService.initGrade();
+    this.selectedWords = [];
+    this.generateRandomCategory();
+    this.generateWords();
     this.nextTurn();
   }
 
@@ -102,34 +122,61 @@ export class WordSorterGameComponent implements OnInit {
     )?.name;
   }
 
-  getRandom(): [Category, TranslatedWord] {
-    const randomCategory =
+  generateRandomCategory() {
+    this.randomCategory =
       this.categoryList[Math.floor(Math.random() * this.categoryList.length)];
-    let randCategoryForWord =
-      this.categoryList[Math.floor(Math.random() * this.categoryList.length)];
-    let randomWord =
-      randCategoryForWord.words[
-        Math.floor(Math.random() * randCategoryForWord.words.length)
-      ];
 
-    while (this.usedWords.has(randomWord)) {
-      randCategoryForWord =
+    while (this.randomCategory.id === this.currentCategory!.id) {
+      this.randomCategory =
         this.categoryList[Math.floor(Math.random() * this.categoryList.length)];
-      randomWord =
-        randCategoryForWord.words[
-          Math.floor(Math.random() * randCategoryForWord.words.length)
-        ];
     }
+  }
 
-    return [randomCategory, randomWord];
+  generateWords() {
+    const wordSet = new Set<TranslatedWord>();
+    for (let i = 0; i < 3; i++) {
+      let word =
+        this.currentCategory!.words[
+          Math.floor(Math.random() * this.currentCategory!.words.length)
+        ];
+      while (wordSet.has(word)) {
+        word =
+          this.currentCategory!.words[
+            Math.floor(Math.random() * this.currentCategory!.words.length)
+          ];
+      }
+      wordSet.add(word);
+    }
+    for (let i = 0; i < 3; i++) {
+      let word =
+        this.randomCategory!.words[
+          Math.floor(Math.random() * this.randomCategory!.words.length)
+        ];
+      while (wordSet.has(word)) {
+        word =
+          this.randomCategory!.words[
+            Math.floor(Math.random() * this.randomCategory!.words.length)
+          ];
+      }
+      wordSet.add(word);
+    }
+    for (const word of wordSet) {
+      this.selectedWords.push(word);
+    }
+    for (let i = 0; i < 3; i++) {
+      const index = Math.floor(Math.random() * this.selectedWords.length);
+      const temp = this.selectedWords[i];
+      this.selectedWords[i] = this.selectedWords[index];
+      this.selectedWords[index] = temp;
+    }
   }
 
   nextTurn() {
-    const [category, word] = this.getRandom();
-    this.currentCategory = category;
+    const word = this.selectedWords.pop()!;
+
     this.currentWord = word;
     this.usedWords.add(word);
-    this.progressValue = ((this.level-1) / 6) * 100;
+    this.progressValue = ((this.level - 1) / 6) * 100;
   }
 
   proceed() {
@@ -142,6 +189,7 @@ export class WordSorterGameComponent implements OnInit {
   }
 
   finishGame() {
+    this.addGameResult();
     this.gameOver = true;
   }
 
@@ -175,7 +223,6 @@ export class WordSorterGameComponent implements OnInit {
       this.incorrectAnswers.add(this.currentWord);
       this.openDialog('failed');
     }
-    //    this.proceed();
   }
   public getGrade() {
     return this.gameService.getGrade();

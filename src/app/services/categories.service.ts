@@ -25,11 +25,15 @@ export class CategoriesService {
   private readonly CATEGORIES_KEY = 'categories';
   private readonly collectionName = 'categories';
   private readonly NEXT_ID_KEY = 'nextId';
+  private categoryMap = new Map<string, Category>();
+
   constructor(private firestoreService: Firestore) {}
   public async getCatgoryById(id: string): Promise<Category | null> {
-    const categoryMap = await this.getCategories();
+    if (this.categoryMap.size == 0) {
+      await this.getCategories();
+    }
 
-    const category = categoryMap.get(id);
+    const category = this.categoryMap.get(id);
     if (category) {
       return category;
     }
@@ -39,29 +43,11 @@ export class CategoriesService {
   private async getCategories(): Promise<Map<string, Category>> {
     const categories = await this.list();
 
-    const map = new Map<string, Category>();
+    this.categoryMap = new Map<string, Category>();
     for (const cat of categories) {
-      map.set(cat.id, cat);
+      this.categoryMap.set(cat.id, cat);
     }
-    return map;
-    // const categoriesString = localStorage.getItem(this.CATEGORIES_KEY);
-
-    // if (!categoriesString) {
-    //   const map = new Map<string, Category>();
-    //   for (const cat of categories) {
-    //     map.set(cat.id, cat);
-    //   }
-    //   this.setCategories(map);
-    //   return map;
-    // } else {
-    //   const parsedCategories = JSON.parse(categoriesString);
-
-    //   if (Array.isArray(parsedCategories)) {
-    //     return new Map<string, Category>(parsedCategories);
-    //   } else {
-    //     return new Map<string, Category>();
-    //   }
-    // }
+    return this.categoryMap;
   }
 
   private getNextId(): number {
@@ -93,16 +79,8 @@ export class CategoriesService {
         results.push(data);
       }
     });
-    // if(results.length == 0){
-    //   for (const cat of categories) {
-    //     await this.add(cat);
-    //   }
-    // }
-   
 
     return results;
-    // return this.firestore.collection<GameResult>(this.collectionName, ref => ref.where('userId', '==', userId))
-    // .valueChanges({ idField: 'id' });
   }
 
   async get(id: string): Promise<Category | null> {

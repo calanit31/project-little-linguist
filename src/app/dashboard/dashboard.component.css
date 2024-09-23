@@ -6,7 +6,8 @@ h1 {
     padding: 2rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem; 
+    gap: 0.5rem;
+   
 }
 
 mat-card {
@@ -22,9 +23,15 @@ mat-card-title {
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis; 
+    text-align: center;
+    
 }
 
 mat-card-content p {
     font-size: 1.5rem;
     margin: 0;
+}
+mat-card-header {
+    display: flex;
+    justify-content: center; /* מוסיף יישור מרכזי */
 }

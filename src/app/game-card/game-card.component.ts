@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
-
 import { GamesService } from '../services/game.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
@@ -49,8 +48,6 @@ export class GameCardComponent {
         return 'mixed-latters-game';
       case 'Word Sorter':
         return 'word-sorter-game';
-     // case 'Trivia':
-       // return 'trivia-game';
       default:
         return null;
     }

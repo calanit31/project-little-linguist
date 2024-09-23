@@ -34,8 +34,6 @@ const CategoriesConverter = {
         origin: word.origin,
         target: word.target,
 
-        // english: word.english,
-        // word: word.word,
       })),
     };
   },
